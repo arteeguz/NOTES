@@ -1,0 +1,31 @@
+Mac:
+Install Node.js and npm.
+Install Visual Studio Code.
+Install Xcode from the Mac App Store.
+Install Expo CLI using npm install -g expo-cli.
+
+Windows:
+Install Node.js and npm.
+Install Visual Studio Code.
+Install Android Studio.
+Install Expo CLI using npm install -g expo-cli.
+
+Additional Dependencies:
+Install React Navigation dependencies:
+npm install @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context
+
+Install Wi-Fi Positioning library:
+npm install react-native-wifi-reborn
+
+Install BLE Beacons library:
+npm install react-native-ble-manager
+
+Install AR Support libraries:
+
+ARKit (iOS):
+npm install react-native-arkit
+ARCore (Android):
+npm install react-native-
+
+Extra: 
+Install Flutter SDK.
