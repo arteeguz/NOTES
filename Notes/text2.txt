@@ -1,0 +1,122 @@
+Technologies and Tools Needed
+Front-End (Mobile App)
+Cross-Platform Development Framework: Flutter, React Native, or Xamarin.
+Examples: Flutter SDK, React Native CLI.
+IDEs:
+For Android: Android Studio.
+For iOS: Xcode.
+General: Visual Studio Code, IntelliJ IDEA.
+AR and Positioning Plugins:
+AR support.
+Examples: ARCore (Android), ARKit (iOS).
+BLE beacon support.
+Examples: CoreBluetooth (iOS), Android Bluetooth API.
+Wi-Fi positioning.
+Examples: Wi-Fi APIs available in Android/iOS SDKs.
+Back-End
+Server-Side Development Platform: Any robust platform that supports RESTful API creation.
+Examples: Node.js with Express, Python with Flask/Django, Java with Spring Boot.
+Database: A database system to store user data, maps, and navigation information.
+Examples: PostgreSQL, MySQL, MongoDB.
+Real-Time Communication: For real-time updates and communication between server and clients.
+Examples: WebSockets, Socket.io.
+Web Server: To serve the back-end application.
+Examples: Nginx, Apache.
+Containerization: To ensure consistent deployment environments.
+Examples: Docker.
+Additional Tools
+API Testing: For testing back-end APIs.
+Examples: Postman, Insomnia.
+Version Control: For managing code and collaboration.
+Examples: Git, GitHub, GitLab.
+Deployment: For deploying the back-end server.
+Examples: AWS, Google Cloud Platform (GCP), Microsoft Azure, DigitalOcean, Heroku.
+Design Plan
+1. Project Setup
+Initialize Front-End Project: Set up a new project using the chosen cross-platform framework.
+Initialize Back-End Project: Set up a new server-side project with the chosen platform and framework.
+2. Database Design
+User Table: Store user information (user ID, name, email, etc.).
+Desk Table: Store desk information (desk ID, floor number, location coordinates, etc.).
+Map Data: Store floor map data and AR markers.
+3. API Design
+User Authentication:
+Sign Up: POST /api/auth/signup
+Login: POST /api/auth/login
+Desk Information:
+Get Desk Info: GET /api/desk/:deskId
+Get All Desks on Floor: GET /api/desks/:floorNumber
+Navigation:
+Get Navigation Path: POST /api/navigation/path (takes current location and destination desk ID)
+4. Mobile App Design
+UI Design:
+
+Login/Sign Up Screen: Allow users to log in or sign up.
+Home Screen: Show the office layout with search functionality.
+Search Screen: Allow users to search for specific desks.
+Map Screen: Display the floor map and AR navigation.
+Settings Screen: Allow users to configure preferences.
+Navigation Logic:
+
+Determine User Position: Use Wi-Fi positioning or BLE beacons to determine the user's current location.
+Calculate Route: Use the back-end API to get the shortest path to the destination desk.
+AR Navigation: Use ARCore or ARKit to provide step-by-step navigation.
+State Management:
+
+Use a state management solution provided by the chosen framework (e.g., Provider for Flutter, Redux for React Native).
+5. Implementation Steps
+Front-End:
+
+Setup Project:
+Create a new project using Flutter, React Native, or Xamarin.
+Install necessary plugins for AR, BLE, Wi-Fi, and maps.
+Create UI Screens and navigation logic.
+Integrate AR Navigation using ARCore and ARKit.
+Implement Wi-Fi and BLE Positioning.
+Back-End:
+
+Setup Project:
+Create a new project using Node.js, Python, or Java.
+Install necessary frameworks and libraries (e.g., Express for Node.js, Flask for Python).
+Create RESTful APIs:
+Authentication routes
+Desk information routes
+Navigation routes
+Connect to Database:
+Set up schemas and models for user and desk data.
+Implement Real-Time Communication using WebSockets.
+Deploy the back-end server to a cloud provider.
+6. Testing and Deployment
+Front-End Testing:
+
+Test on both Android and iOS simulators/emulators.
+Use physical devices for AR testing.
+Back-End Testing:
+
+Use Postman to test API endpoints.
+Write unit tests for API endpoints.
+Deployment:
+
+Deploy the back-end server to a cloud provider.
+Distribute the mobile app through Google Play Store and Apple App Store.
+Summary
+Front-End:
+
+Choose a cross-platform framework: Flutter, React Native, or Xamarin.
+Use IDEs: Android Studio (Android), Xcode (iOS), and Visual Studio Code/IntelliJ IDEA.
+Integrate AR, BLE, and Wi-Fi positioning plugins/APIs.
+Back-End:
+
+Choose a server-side development platform: Node.js, Python, or Java.
+Use a database: PostgreSQL, MySQL, or MongoDB.
+Implement real-time communication: WebSockets.
+Use a web server: Nginx or Apache.
+Consider containerization: Docker.
+Additional Tools:
+
+API testing: Postman.
+Version control: Git, GitHub.
+Deployment: AWS, GCP, Azure, DigitalOcean, Heroku.
+Design Plan:
+
+Set up projects, design database and APIs, implement UI and navigation logic, test and deploy.
