@@ -1,0 +1,31 @@
+Task Breakdown for MVP
+Project Setup (July 1 - July 2)
+Initialize project repositories, set up version control, and gather requirements.
+Front-End Setup (July 3 - July 7)
+Set up the Flutter/React Native environment and initial project structure.
+Back-End Setup (July 3 - July 7)
+Set up the server environment (Node.js, Python, Java) and initial project structure.
+Database Design (July 8 - July 10)
+Design the database schema for users, desks, and map data.
+API Design (July 11 - July 14)
+Design the RESTful APIs for authentication, desk information, and navigation.
+Front-End UI Design (July 8 - July 12)
+Create the user interface designs for login, home, search, map, and settings screens.
+Front-End Navigation Logic (July 13 - July 17)
+Implement the logic for user positioning and route calculation.
+AR Integration (July 18 - July 24)
+Integrate ARCore/ARKit for AR-based navigation.
+Wi-Fi/BLE Positioning (July 18 - July 24)
+Implement Wi-Fi and BLE-based positioning for user location tracking.
+Back-End API Implementation (July 15 - July 24)
+Develop the back-end APIs based on the designs.
+Front-End to Back-End Integration (July 25 - July 29)
+Integrate the front-end with the back-end APIs.
+Testing and Debugging (July 30 - August 8)
+Conduct thorough testing of the app on both Android and iOS devices and fix any bugs.
+Deployment (August 9 - August 12)
+Deploy the back-end server and distribute the mobile app through app stores.
+Final Review and Adjustments (August 13 - August 14)
+Perform a final review of the app and make any necessary adjustments.
+Project Documentation (July 1 - July 2)
+Document the entire project, including the codebase, design decisions, and user guides.
