@@ -71,8 +71,8 @@ class DeskFinderHomePage extends StatelessWidget {
                 onPressed: () {},
                 child: Text('Search'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.yellow,
-                  onPrimary: Colors.blue,
+                  backgroundColor: Colors.yellow,
+                  foregroundColor: Colors.blue,
                 ),
               ),
             ],
