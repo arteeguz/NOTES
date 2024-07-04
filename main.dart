@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(DeskFinderApp());
+  runApp(MyApp());
 }
 
-class DeskFinderApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DeskFinderHomePage(),
+      title: 'Desk Finder',
       theme: ThemeData(
-        primaryColor: Colors.blue,
-        accentColor: Colors.yellow,
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.blue[800],
-          hintStyle: TextStyle(color: Colors.yellow),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
-          ),
-        ),
+        primarySwatch: Colors.blue,
       ),
+      home: MyHomePage(title: 'Desk Finder Home Page'),
     );
   }
 }
 
-class DeskFinderHomePage extends StatelessWidget {
+class MyHomePage extends StatelessWidget {
+  final String title;
+
+  MyHomePage({required this.title});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      appBar: AppBar(
+        title: Text(title),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -62,6 +59,13 @@ class DeskFinderHomePage extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Enter desk number',
+                  hintStyle: TextStyle(color: Colors.yellow),
+                  filled: true,
+                  fillColor: Colors.blue[800],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
                 style: TextStyle(color: Colors.yellow),
                 textAlign: TextAlign.center,
