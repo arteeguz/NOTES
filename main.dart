@@ -9,6 +9,19 @@ class DeskFinderApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DeskFinderHomePage(),
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+        accentColor: Colors.yellow,
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.blue[800],
+          hintStyle: TextStyle(color: Colors.yellow),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -49,13 +62,6 @@ class DeskFinderHomePage extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Enter desk number',
-                  hintStyle: TextStyle(color: Colors.yellow),
-                  filled: true,
-                  fillColor: Colors.blue[800],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
-                  ),
                 ),
                 style: TextStyle(color: Colors.yellow),
                 textAlign: TextAlign.center,
