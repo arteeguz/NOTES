@@ -1,0 +1,92 @@
+classDiagram
+    direction LR
+    class User {
+        -int userId
+        -string name
+        -string email
+        -string password
+        +login()
+        +logout()
+        +searchDesk()
+        +viewOfficeLayout()
+        +navigateToDesk()
+        +updateProfile()
+        +reportIssue()
+    }
+    class Desk {
+        -int deskId
+        -int floorNumber
+        -string location
+        -boolean isAvailable
+        +getDeskInfo()
+        +updateAvailability()
+    }
+    class Office {
+        -int officeId
+        -string name
+        -List~Floor~ floors
+        +getFloorPlan()
+        +updateLayout()
+    }
+    class Floor {
+        -int floorNumber
+        -List~Desk~ desks
+        +getDesks()
+        +addDesk()
+        +removeDesk()
+    }
+    class NavigationSystem {
+        -AREngine arEngine
+        +calculatePath()
+        +provideARDirections()
+        +updateUserLocation()
+    }
+    class AuthenticationSystem {
+        +authenticateUser()
+        +registerUser()
+        +resetPassword()
+    }
+    class Booking {
+        -int bookingId
+        -int userId
+        -int deskId
+        -DateTime startTime
+        -DateTime endTime
+        +createBooking()
+        +cancelBooking()
+    }
+    class AREngine {
+        -Camera camera
+        -IMUSensor imuSensor
+        +initializeAR()
+        +updateAROverlay()
+    }
+    class AdminDashboard {
+        +generateUsageReport()
+        +manageUserAccounts()
+        +viewSystemLogs()
+    }
+    User "1" -- "0..*" Desk : searches
+    User "1" -- "1" Office : views
+    User "1" -- "0..*" Booking : makes
+    Office "1" -- "1..*" Floor : contains
+    Floor "1" -- "1..*" Desk : has
+    NavigationSystem -- User : guides
+    NavigationSystem -- Desk : locates
+    NavigationSystem "1" -- "1" AREngine : uses
+    AuthenticationSystem -- User : authenticates
+    Booking -- Desk : reserves
+    AdminDashboard -- User : manages
+    AdminDashboard -- Office : configures
+
+    %% Styling
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef system fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef entity fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    class User,Desk,Office,Floor,Booking entity;
+    class NavigationSystem,AuthenticationSystem,AREngine,AdminDashboard system;
+
+    %% Layout hints
+    User --> NavigationSystem
+    User --> AuthenticationSystem
+    Office --> AdminDashboard
