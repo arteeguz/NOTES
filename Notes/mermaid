@@ -1,0 +1,27 @@
+graph TD
+    A[Start] --> B[Open App]
+    B --> C{User Authenticated?}
+    C -->|No| D[Login/Sign Up Screen]
+    D --> E[Enter Credentials]
+    E --> F{Valid Credentials?}
+    F -->|No| D
+    F -->|Yes| G[Home Screen]
+    C -->|Yes| G
+    G --> H{User Action}
+    H --> I[Search for Desk]
+    H --> J[View Office Layout]
+    H --> K[Access Settings]
+    I --> L[Enter Desk Number]
+    L --> M[View Desk Information]
+    M --> N{Navigate to Desk?}
+    N -->|Yes| O[Start AR Navigation]
+    N -->|No| G
+    J --> P[Browse Floor Map]
+    P --> Q{Select Desk?}
+    Q -->|Yes| M
+    Q -->|No| G
+    K --> R[Adjust App Settings]
+    R --> G
+    O --> S[Follow AR Directions]
+    S --> T[Arrive at Desk]
+    T --> U[End]
