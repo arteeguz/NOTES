@@ -1,0 +1,40 @@
+graph LR
+    A([Start]) --> B[Open App]
+    B --> C{User Authenticated?}
+    C -->|No| D[Login/Sign Up Screen]
+    D --> E[Authenticate]
+    E --> F{Valid Credentials?}
+    F -->|No| D
+    F -->|Yes| G[Home Screen]
+    C -->|Yes| G
+    G --> H{User Action}
+    H --> I[Search for Desk]
+    H --> J[View Office Layout]
+    H --> K[Access Settings]
+    I --> L[Enter Desk Number]
+    L --> M[View Desk Information]
+    M --> N{Navigate to Desk?}
+    N -->|Yes| O[Start AR Navigation]
+    N -->|No| G
+    J --> P[Browse Floor Map]
+    P --> Q{Select Desk?}
+    Q -->|Yes| M
+    Q -->|No| G
+    K --> R[Adjust App Settings]
+    R --> G
+    O --> S[Follow AR Directions]
+    S --> T[Arrive at Desk]
+    T --> U([End])
+
+    %% Styling
+    classDef default fill:#f0f0f0,stroke:#333,stroke-width:3px;
+    classDef process fill:#d4edda,stroke:#28a745,stroke-width:3px;
+    classDef decision fill:#fff3cd,stroke:#ffc107,stroke-width:3px;
+    classDef highlight fill:#cce5ff,stroke:#0056b3,stroke-width:3px;
+    class A,U default;
+    class B,D,E,G,I,J,K,L,M,O,P,R,S,T process;
+    class C,F,N,Q decision;
+    class G,M,O highlight;
+
+    %% Relationship styling
+    linkStyle default stroke:#666,stroke-width:4px;
