@@ -1,0 +1,99 @@
+graph LR
+    A([Start]) --> B[Open App]
+    B --> C{User Auth?}
+    C -->|No| D[Login]
+    D --> E[Credentials]
+    E --> F[API: Auth]
+    F --> G{Valid?}
+    G -->|No| D
+    G -->|Yes| H[Home]
+    C -->|Yes| H
+    H --> I{Action}
+    I --> J[Search]
+    I --> K[Layout]
+    I --> L[Settings]
+    J --> M[Desk #]
+    M --> N[API: Desk]
+    N --> O[DB Query]
+    O --> P[Info]
+    K --> S[API: Layout]
+    S --> T[DB Query]
+    T --> U[Map]
+    L --> W[Prefs]
+    W --> X[API: Save]
+    X --> Y[DB Update]
+    P --> Q{Navigate?}
+    Q -->|Yes| R[AR Nav]
+    Q -->|No| H
+    U --> V{Select?}
+    V -->|Yes| P
+    V -->|No| H
+    Y --> H
+    R --> Z[AR: Init]
+    Z --> AA[Follow]
+    AA --> AB[Update]
+    AB --> AC{At Desk?}
+    AC -->|No| AA
+    AC -->|Yes| AD([End])
+
+    %% Styling
+    classDef default fill:#f0f0f0,stroke:#333,stroke-width:3px;
+    classDef process fill:#d4edda,stroke:#28a745,stroke-width:3px;
+    classDef decision fill:#fff3cd,stroke:#ffc107,stroke-width:3px;
+    classDef api fill:#e7f5ff,stroke:#0056b3,stroke-width:3px;
+    classDef db fill:#f8d7da,stroke:#dc3545,stroke-width:3px;
+    classDef highlight fill:#e0cffc,stroke:#6f42c1,stroke-width:3px;
+    class A,AD default;
+    class B,D,E,H,J,K,L,M,P,U,W process;
+    class C,G,I,Q,V,AC decision;
+    class F,N,S,X api;
+    class O,T,Y db;
+    class R,Z,AA,AB highlight;
+
+    %% Relationship styling
+    linkStyle default stroke:#666,stroke-width:3px;
+
+    %% Layout adjustments
+    subgraph Authentication
+    C
+    D
+    E
+    F
+    G
+    end
+
+    subgraph Main Actions
+    I
+    J
+    K
+    L
+    end
+
+    subgraph Search Flow
+    M
+    N
+    O
+    P
+    Q
+    end
+
+    subgraph Layout Flow
+    S
+    T
+    U
+    V
+    end
+
+    subgraph Settings Flow
+    W
+    X
+    Y
+    end
+
+    subgraph AR Navigation
+    R
+    Z
+    AA
+    AB
+    AC
+    end
