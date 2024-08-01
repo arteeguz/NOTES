@@ -1,10 +1,10 @@
 classDiagram
     direction LR
     class User {
-        -int userId
-        -string name
-        -string email
-        -string password
+        -userId: int
+        -name: string
+        -email: string
+        -password: string
         +login()
         +logout()
         +searchDesk()
@@ -14,29 +14,29 @@ classDiagram
         +reportIssue()
     }
     class Desk {
-        -int deskId
-        -int floorNumber
-        -string location
-        -boolean isAvailable
+        -deskId: int
+        -floorNumber: int
+        -location: string
+        -isAvailable: boolean
         +getDeskInfo()
         +updateAvailability()
     }
     class Office {
-        -int officeId
-        -string name
-        -List~Floor~ floors
+        -officeId: int
+        -name: string
+        -floors: List~Floor~
         +getFloorPlan()
         +updateLayout()
     }
     class Floor {
-        -int floorNumber
-        -List~Desk~ desks
+        -floorNumber: int
+        -desks: List~Desk~
         +getDesks()
         +addDesk()
         +removeDesk()
     }
     class NavigationSystem {
-        -AREngine arEngine
+        -arEngine: AREngine
         +calculatePath()
         +provideARDirections()
         +updateUserLocation()
@@ -47,17 +47,17 @@ classDiagram
         +resetPassword()
     }
     class Booking {
-        -int bookingId
-        -int userId
-        -int deskId
-        -DateTime startTime
-        -DateTime endTime
+        -bookingId: int
+        -userId: int
+        -deskId: int
+        -startTime: DateTime
+        -endTime: DateTime
         +createBooking()
         +cancelBooking()
     }
     class AREngine {
-        -Camera camera
-        -IMUSensor imuSensor
+        -camera: Camera
+        -imuSensor: IMUSensor
         +initializeAR()
         +updateAROverlay()
     }
@@ -78,15 +78,3 @@ classDiagram
     Booking -- Desk : reserves
     AdminDashboard -- User : manages
     AdminDashboard -- Office : configures
-
-    %% Styling
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef system fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef entity fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    class User,Desk,Office,Floor,Booking entity;
-    class NavigationSystem,AuthenticationSystem,AREngine,AdminDashboard system;
-
-    %% Layout hints
-    User --> NavigationSystem
-    User --> AuthenticationSystem
-    Office --> AdminDashboard
