@@ -1,0 +1,102 @@
+graph TD
+    A([Start]) --> B[Open App]
+    
+    subgraph Auth
+    B --> C{Cached Credentials?}
+    C -->|Yes| D[Auto Login]
+    C -->|No| E[Show Login Screen]
+    E --> F[Enter Credentials]
+    F --> G{Valid?}
+    G -->|No| H[Show Error]
+    H --> E
+    G -->|Yes| I[Set User Session]
+    D --> J{Session Valid?}
+    J -->|No| E
+    J -->|Yes| K[Load User Preferences]
+    I --> K
+    end
+    
+    K --> L[Show Home Screen]
+    
+    subgraph MainFlow
+    L --> M{User Action}
+    M -->|Search| N[Enter Desk/Employee]
+    M -->|View Layout| O[Load Office Map]
+    M -->|Settings| P[Open Settings]
+    M -->|Logout| Q[Clear Session]
+    
+    N --> R{Valid Input?}
+    R -->|No| S[Show Error]
+    S --> N
+    R -->|Yes| T[Fetch Desk/Employee Info]
+    T --> U[Display Results]
+    U --> V{Action?}
+    V -->|Navigate| W[Start AR Navigation]
+    V -->|View Details| X[Show Detailed Info]
+    V -->|Back| L
+    
+    O --> Y[Display Interactive Map]
+    Y --> Z{User Interaction}
+    Z -->|Zoom/Pan| Y
+    Z -->|Select Area| AA[Highlight Area]
+    Z -->|Select Desk| AB[Show Desk Preview]
+    AB --> AC{Action?}
+    AC -->|View Details| X
+    AC -->|Navigate| W
+    AC -->|Close| Y
+    
+    P --> AD[Show User Preferences]
+    AD --> AE{Change Made?}
+    AE -->|Yes| AF[Save Changes]
+    AF --> AG{Save Successful?}
+    AG -->|No| AH[Show Error]
+    AH --> AD
+    AG -->|Yes| AI[Update Local Settings]
+    AE -->|No| L
+    AI --> L
+    
+    Q --> AJ[Clear Local Data]
+    AJ --> A
+    end
+    
+    subgraph ARNav
+    W --> AK[Initialize AR]
+    AK --> AL[Scan Environment]
+    AL --> AM[Display AR Overlay]
+    AM --> AN[Track User Movement]
+    AN --> AO{At Destination?}
+    AO -->|No| AP{Lost Tracking?}
+    AP -->|Yes| AQ[Recalibrate]
+    AQ --> AL
+    AP -->|No| AN
+    AO -->|Yes| AR[Show Arrival Message]
+    AR --> AS{Action?}
+    AS -->|End Navigation| L
+    AS -->|New Search| N
+    end
+    
+    X --> AT{Action?}
+    AT -->|Edit| AU[Show Edit Form]
+    AU --> AV[Save Changes]
+    AV --> AW{Save Successful?}
+    AW -->|No| AX[Show Error]
+    AX --> AU
+    AW -->|Yes| X
+    AT -->|Close| U
+    
+    %% Styling
+    classDef default fill:#f0f0f0,stroke:#333,stroke-width:2px;
+    classDef process fill:#d4edda,stroke:#28a745,stroke-width:2px;
+    classDef decision fill:#fff3cd,stroke:#ffc107,stroke-width:2px;
+    classDef api fill:#e7f5ff,stroke:#0056b3,stroke-width:2px;
+    classDef error fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
+    classDef arNav fill:#e0cffc,stroke:#6f42c1,stroke-width:2px;
+    
+    class A,Q,AJ default;
+    class B,D,E,F,I,K,L,N,O,P,T,U,X,Y,AA,AB,AD,AF,AI,AU,AV process;
+    class C,G,J,M,R,V,Z,AC,AE,AG,AO,AP,AS,AT,AW decision;
+    class H,S,AH,AX error;
+    class W,AK,AL,AM,AN,AQ,AR arNav;
+
+    %% Relationship styling
+    linkStyle default stroke:#666,stroke-width:2px;
