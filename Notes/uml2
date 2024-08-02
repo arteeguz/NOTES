@@ -1,5 +1,24 @@
 classDiagram
     direction LR
+    
+    subgraph CoreEntities
+    User
+    Desk
+    Office
+    Floor
+    end
+    
+    subgraph Systems
+    AuthenticationSystem
+    NavigationSystem
+    AREngine
+    end
+    
+    subgraph Management
+    AdminDashboard
+    Booking
+    end
+
     class User {
         -userId: int
         -name: string
@@ -66,6 +85,7 @@ classDiagram
         +manageUserAccounts()
         +viewSystemLogs()
     }
+    
     User "1" -- "0..*" Desk : searches
     User "1" -- "1" Office : views
     User "1" -- "0..*" Booking : makes
