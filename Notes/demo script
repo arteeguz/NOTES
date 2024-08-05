@@ -1,0 +1,36 @@
+Slide 1: Hello, my name is Artem Guz, and I am a DSS Summer Analyst with End-User Services. I also enjoy cooking as a hobby. Throughout my internship at RBC, I’ve worked on many projects, but one task always felt inefficient.
+Slide 2: Sometimes we reuse an old assets if we have a high volume of new interns like this year, so on those assets we had to manually check details like RAM size or OS version to ensure compliance with RBC policies. To streamline this, I created a tool with features like Single IP and Segment Processing, Batch Processing, Detailed System Information, Automated Output, and High-Speed Execution. The tool also offers customizable data retrieval options to optimize scan performance.
+Slide 3: Let's talk about use cases. The tool helps with system updates, security audits, asset management, and hardware upgrades. This is especially useful as we transition from Windows 10 to 11. As we can see on the top of the slide we have output sample that shows us data like asset model, OS verison and user name. With this data we could easily target an asset if needed. 
+Slide 4: How is this different from tools like HEGIRA or Advanced IP Scanner? My IP Processing Tool can process multiple IP ranges simultaneously, capturing only essential data for specific use cases. Users can balance scan depth with execution time, making it up to 15% faster than competitors. Additionally, since it’s built in-house, it's easily adjustable by any DSS member to add or remove functionality as needed.
+Slide 5: Now, let's discuss cost savings. Imagine a DSS technician manually checking each computer for compliance with RBC policies. This could take up to 4 minutes per machine, which is very time-consuming. My tool can scan an entire floor in 5 to 10 minutes, saving significant time and $14,404 annually.
+Slide 6: Here is a quick demo of the IP Processing Tool. The tool is hosted on the network drive, so we can create a shortcut on every DSS member's computer, allowing them to use it. Users can adjust what data they want to retrieve and in this case input an IP segment. We wait until the execution is finished, that of course takes time, but once it finished we can save the data anywhere on the computer. There are other settings that can be adjusted like the number of the concurrent scans or grid view(40-second video plays)
+
+
+Slide 6:
+I am quickly gonna go over Technologies I used for this project: Microsoft Visual Studio as my IDE, C# wth .NET Framework, Windows Presentation Foundation (WFP), XAML for styling, Windows Management Instrumentation, Task Parallel Library, Language itegraded Query, System.Net.NetworkInformation and Microsoft.Win32 for registry access).
+
+
+
+### Slide 1: 
+My second project is a bit bit of an innovative in the industry that’s still in early development stage, 'Desk Finder.' This project aims to revolutionize the way we navigate and utilize our office spaces.”
+
+### Slide 2: 
+“Desk Finder is an AR-powered navigation solution designed to streamline the process of locating desks within our office. This app enhances technician productivity and helps visitors easily find desks, significantly improving the overall experience.”
+
+### Slide 3: 
+“Currently, searching for a desk is time-consuming and inefficient. With the Desk Finder App, employees can instantly navigate to their desks using AR technology. This app offers interactive map, real-time updates, and a user-friendly interface, making it far superior to the manual search method.”
+
+### Slide 4: 
+“Our Desk Finder App will result in significant cost savings. By reducing the time employees spend searching for desks, we estimate an annual saving of $26,208. This is based on 15 employees saving approximately 10 minutes daily at an hourly rate of $42. The time saved translates directly into increased productivity and cost efficiency.”
+
+### Slide 5: 
+“Beyond just saving time and money, Desk Finder offers multiple additional benefits. It can reduce desk search time by up to 80%, improve workplace satisfaction, enhance productivity and focus, boost employee mood, and ensure better space utilization.”
+
+### Slide 6: 
+“The Desk Finder App is built using cutting-edge technologies. We’ve utilized Flutter for cross-platform development, AR for augmented reality navigation, Node.js and Express.js for backend services, and PostgreSQL for database management. These technologies ensure the app is robust, scalable, and user-friendly.”
+
+### Slide 7: 
+“Here, we have the UML and workflow diagrams that outline the structure and functionality of the Desk Finder App. These diagrams detail the app’s architecture, user interactions, and backend processes, providing a clear blueprint for development and implementation.”
+
+### Final Slide: 
+“Thank you for your attention. This concludes my presentation on the Desk Finder project. I’m happy to answer any questions you may have. To summarize, Desk Finder is a powerful tool that can significantly enhance our office navigation, save costs, and improve overall employee satisfaction.”
