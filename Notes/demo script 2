@@ -1,0 +1,13 @@
+Slide 1: Hello, my name is Artem Guz. I’m a DSS Summer Analyst with End-User Services. During my internship at RBC, I worked on various projects, including ensuring our systems were up to date during the intern onboarding process.
+Slide 2: Manually checking system details like software versions and hardware specs is time-consuming and inefficient, especially during periods of onboarding.
+To solve this, I created the IP Processing Tool with the following features:
+Single IP, IP segment, and batch processing.
+Detailed system information
+Automated output
+High-speed execution
+ The tool also offers customizable data retrieval options to optimize scan performance.
+Slide 3: Here is a quick demo of the IP Processing Tool. Users can adjust what data they want to retrieve and other settings like a number of concurrent scans. In this case, we input an IP segment. We wait until the execution is finished, which of course takes time, but once it is finished we can save the data anywhere on the computer and review the output file. 
+Slide 4: Let's talk about use cases. The tool helps with system updates, security checks, managing assets, and hardware upgrades. It's especially useful as we move from Windows 10 to 11 or ensure everyone has the latest Microsoft Office 365
+Slide 5: Now, let's discuss cost savings. Manually checking each computer for tech currency could take up to 4 minutes per machine. My tool can scan an entire floor in 5 to 10 minutes, saving significant time and $14,404 annually
+Slide 6: Finally, I want to mention how my tool compares to others like MECM, Angry IP Scanner, HAT, and HEGIRA. The IP Processing Tool is faster because it processes multiple IPs at once using parallel processing, provides real-time updates, and supports custom queries. Since it’s built in-house, it’s easily adjustable by any DSS member. These features make it a powerful and flexible tool.
+In conclusion, the IP Processing Tool makes our system checks faster and more efficient. It saves time, reduces costs, and helps to keep our systems up-to-date. Thank you for your attention.
