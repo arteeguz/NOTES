@@ -12,18 +12,20 @@ The "Desk Finder" project aims to leverage AR and Wi-Fi positioning to guide emp
 
 ### 2.1 Augmented Reality (AR)
 
-#### 2.1.1 Environment Mapping: The Need for Precision
+### 2.1.1 Environment Mapping: The Need for Precision
 
 Environment mapping is a critical component of AR technology. It involves creating a detailed 3D model of the physical space in real-time. Several techniques are commonly used for this purpose, each with its own set of advantages and disadvantages. Below, we explore these techniques in detail.
 
-**Simultaneous Localization and Mapping (SLAM):**
+#### **Simultaneous Localization and Mapping (SLAM):**
 
 One of the most common techniques used for environment mapping is [Simultaneous Localization and Mapping (SLAM)](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping). SLAM algorithms, such as [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2), are designed to both build a map of the environment and track the user's position within it simultaneously.
 
 **Understanding SLAM:**
 
 - **SLAM Overview**: SLAM is a complex process that combines data from sensors, such as cameras and inertial measurement units (IMUs), to construct a map of an unknown environment while simultaneously keeping track of the user's location within that environment. The SLAM process typically involves several steps: feature detection, feature matching, pose estimation, and map optimization.
+
 - **ORB-SLAM2**: ORB-SLAM2 is a widely used open-source SLAM algorithm. It stands for Oriented FAST and Rotated BRIEF (ORB), which are the key components used for feature detection and description. ORB-SLAM2 is particularly known for its ability to perform well in real-time scenarios, making it suitable for AR applications on mobile devices.
+
   - **ORB (Oriented FAST and Rotated BRIEF)**: The ORB algorithm is used to detect keypoints (features) in the environment. The [FAST (Features from Accelerated Segment Test)](https://www.edwardrosten.com/work/rosten_2006_machine.pdf) algorithm is employed to quickly identify corners in the image, while BRIEF (Binary Robust Independent Elementary Features) creates a binary descriptor for these keypoints. The "oriented" part refers to the enhancement that makes ORB rotation-invariant, meaning it can recognize features even if the camera's orientation changes.
 
 **Advantages:**
@@ -36,28 +38,77 @@ One of the most common techniques used for environment mapping is [Simultaneous 
 - **Computational Demands**: SLAM is computationally intensive and may not perform well on less powerful mobile devices. Optimizing the algorithm for performance on mobile devices requires significant effort.
 - **Training Requirements**: SLAM requires a significant amount of training data and fine-tuning to ensure accuracy in diverse environments. For example, training a SLAM-based model on a large dataset of images representing various office environments can take weeks to months, depending on the dataset size and computing power. Training on 10,000 images could take 2-4 weeks on a high-end GPU, costing approximately $1,500-$3,000 in cloud computing resources.
 
-**Alternative Techniques:**
+#### **Structure from Motion (SfM):**
 
-1. **Structure from Motion (SfM):**
+[Structure from Motion (SfM)](https://en.wikipedia.org/wiki/Structure_from_motion) is a photogrammetry technique that constructs 3D structures from 2D image sequences. Unlike SLAM, SfM is typically used for offline mapping and requires substantial post-processing.
 
-   [Structure from Motion (SfM)](https://en.wikipedia.org/wiki/Structure_from_motion) is a photogrammetry technique that constructs 3D structures from 2D image sequences. Unlike SLAM, SfM is typically used for offline mapping and requires substantial post-processing. While it can produce highly detailed 3D models, it is not suitable for real-time applications.
+**Understanding SfM:**
 
-   - **Advantages**: SfM can generate high-quality, detailed 3D models from images, making it suitable for applications where real-time processing is not required.
-   - **Disadvantages**: The method is not suitable for real-time applications due to the extensive computational resources and time required for post-processing. Additionally, SfM struggles in dynamic environments where objects move, as it assumes a static scene.
+- **SfM Overview**: Structure from Motion is based on the principle that a sequence of 2D images captured from different viewpoints can be used to reconstruct a 3D model of the environment. The process involves identifying matching points across images, estimating camera motion, and building a 3D point cloud that represents the environment's structure.
 
-2. **Depth Mapping with LIDAR:**
+- **Image Matching and Feature Detection**: Similar to SLAM, SfM relies on detecting and matching features across images. Algorithms like SIFT (Scale-Invariant Feature Transform) or SURF (Speeded Up Robust Features) are commonly used for this purpose. These features help in identifying corresponding points in different images, which are then used to infer depth and structure.
 
-   [LIDAR (Light Detection and Ranging)](https://en.wikipedia.org/wiki/Lidar) is a remote sensing method that uses laser pulses to measure distances to objects. By capturing the time it takes for a laser to return to the sensor, LIDAR creates accurate depth maps of the environment. Some modern smartphones, like the iPhone 12 Pro, come equipped with LIDAR sensors.
+- **3D Reconstruction**: Once the camera's motion is estimated, the SfM algorithm triangulates the matched features to build a 3D point cloud. This point cloud can be further processed to create a detailed 3D mesh or model, which can be used for various applications, including AR.
 
-   - **Advantages**: LIDAR provides highly accurate distance measurements, which can be used to construct precise 3D models. It performs well in various lighting conditions and is not affected by low light or shadows.
-   - **Disadvantages**: LIDAR sensors are expensive and are not commonly found in most smartphones, limiting the accessibility of this technology. The high cost of LIDAR-equipped devices and the additional battery drain during use are significant drawbacks.
+**Advantages:**
 
-3. **Point Cloud Mapping:**
+- **High-Quality Models**: SfM can generate highly detailed 3D models from ordinary 2D images, making it a powerful tool for creating realistic virtual environments. It is particularly useful in situations where high-resolution models are required, and real-time performance is not a priority.
 
-   [Point Cloud Mapping](https://en.wikipedia.org/wiki/Point_cloud) involves generating a collection of data points in space, each representing a 3D coordinate. These points are gathered using various sensors, including cameras, LIDAR, or depth sensors, and are used to create a 3D model of the environment.
+- **Flexibility**: SfM can work with any camera that can capture images, making it accessible for a wide range of applications. The technique is also adaptable to various scales, from small objects to large landscapes.
 
-   - **Advantages**: Point clouds can be used for detailed and scalable mapping, offering flexibility in how the data is collected and processed. They are particularly useful in creating highly detailed models of complex environments.
-   - **Disadvantages**: The process of generating and processing point clouds is computationally intensive, leading to performance issues on mobile devices. The data processing requirements can be demanding, making it less suitable for real-time applications without significant optimization.
+**Disadvantages:**
+
+- **Not Real-Time**: SfM is not suitable for real-time applications due to the extensive computational resources and time required for post-processing. The process involves significant computation, especially during the image matching and 3D reconstruction phases, which can take hours or even days depending on the dataset size.
+
+- **Static Environments**: SfM assumes that the environment is static during the image capture process. This assumption makes it less effective in dynamic environments where objects move, as it cannot accurately account for changes between images.
+
+#### **Depth Mapping with LIDAR:**
+
+[Light Detection and Ranging (LIDAR)](https://en.wikipedia.org/wiki/Lidar) is a remote sensing method that uses laser pulses to measure distances to objects. By capturing the time it takes for a laser to return to the sensor, LIDAR creates accurate depth maps of the environment.
+
+**Understanding LIDAR:**
+
+- **LIDAR Overview**: LIDAR systems emit laser pulses and measure the time it takes for each pulse to return after reflecting off an object. By calculating the distance based on the time of flight (ToF) of the laser, LIDAR creates a detailed 3D map of the surrounding environment. LIDAR is known for its high precision and ability to capture fine details, making it a popular choice in autonomous vehicles and high-end AR systems.
+
+- **Data Processing**: The data collected by LIDAR is typically in the form of a point cloud, where each point represents a measurement with precise 3D coordinates. This point cloud can be processed to create a detailed map or mesh of the environment. LIDAR systems are often combined with other sensors, like cameras or IMUs, to enhance accuracy and provide additional contextual information.
+
+- **Integration with AR**: In AR applications, LIDAR can be used to accurately map the environment and place virtual objects within it. This mapping capability allows for precise overlay of AR content, enhancing the realism and immersion of the AR experience.
+
+**Advantages:**
+
+- **High Accuracy**: LIDAR provides extremely accurate distance measurements, often within millimeters. This accuracy is crucial for applications that require precise environmental mapping, such as AR and autonomous navigation.
+
+- **Performance in Various Conditions**: LIDAR performs well in different lighting conditions, including low light and darkness, where camera-based systems might struggle. This makes it a versatile tool for both indoor and outdoor applications.
+
+**Disadvantages:**
+
+- **Cost and Accessibility**: LIDAR sensors are expensive and are typically found in high-end devices. The cost of integrating LIDAR into consumer-grade AR applications is a significant barrier, limiting its widespread adoption.
+
+- **Battery Consumption**: LIDAR systems can be power-hungry, leading to increased battery drain when used in mobile devices. This is a concern for applications that require prolonged use, such as mobile AR experiences.
+
+#### **Point Cloud Mapping:**
+
+[Point Cloud Mapping](https://en.wikipedia.org/wiki/Point_cloud) involves generating a collection of data points in space, each representing a 3D coordinate. These points are gathered using various sensors, including cameras, LIDAR, or depth sensors, and are used to create a 3D model of the environment.
+
+**Understanding Point Cloud Mapping:**
+
+- **Point Cloud Overview**: A point cloud is a large set of data points that represent the external surface of an object or environment. Each point in the cloud has its own set of X, Y, and Z coordinates, which collectively form a three-dimensional representation of the area being scanned. Point clouds can be generated by a variety of methods, including photogrammetry, laser scanning, and depth sensing.
+
+- **Data Collection and Processing**: Point clouds are typically generated by scanning the environment with a sensor, such as a LIDAR or a depth camera. These sensors capture thousands or even millions of data points, which are then processed to create a 3D model. This processing can include noise reduction, point cloud registration (aligning multiple point clouds), and converting the point cloud into a mesh or solid model.
+
+- **Applications in AR**: In AR, point clouds can be used to create detailed environmental maps that allow virtual objects to interact more naturally with the physical world. For example, a point cloud can help an AR system recognize surfaces, obstacles, and spatial relationships, enabling more accurate placement and movement of virtual objects.
+
+**Advantages:**
+
+- **Detail and Accuracy**: Point clouds can capture a high level of detail, making them ideal for applications that require precise modeling of complex environments. This level of detail is particularly useful in industries like construction, manufacturing, and heritage preservation, where accurate 3D models are essential.
+
+- **Scalability**: Point cloud mapping is scalable and can be used for everything from small objects to large landscapes. The ability to combine multiple point clouds into a single, cohesive model also makes it a powerful tool for comprehensive environmental mapping.
+
+**Disadvantages:**
+
+- **High Computational Load**: Processing point clouds requires significant computational resources, especially when dealing with large datasets. The need for powerful processing capabilities can limit the use of point clouds in real-time applications, particularly on mobile devices.
+
+- **Data Management**: Point clouds can generate vast amounts of data, leading to challenges in storage, transmission, and real-time processing. Managing this data efficiently is crucial for successful implementation in AR applications, and failure to do so can result in lag or reduced performance.
 
 **Specific Challenges:**
 
