@@ -1,0 +1,142 @@
+private async Task ProcessIPsAsync(IEnumerable<string> ips)
+{
+    totalIPs = ips.Count();
+    processedIPs = 0;
+    UpdateProgressBar(0);
+
+    DisableButtons();
+
+    cancellationTokenSource = new CancellationTokenSource();
+    var semaphore = new SemaphoreSlim(MaxConcurrentScans);
+
+    try
+    {
+        var tasks = new List<Task>();
+        foreach (var ip in ips)
+        {
+            await semaphore.WaitAsync(cancellationTokenSource.Token);
+            tasks.Add(Task.Run(async () =>
+            {
+                try
+                {
+                    var scanStatus = await ProcessIPAsync(ip, cancellationTokenSource.Token);
+                    if (scanStatus != null)
+                    {
+                        UpdateScanStatus(scanStatus);
+                    }
+                    Interlocked.Increment(ref processedIPs);
+                    UpdateProgressBar((int)((double)processedIPs / totalIPs * 100));
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
+            }, cancellationTokenSource.Token));
+        }
+
+        await Task.WhenAll(tasks);
+    }
+    catch (OperationCanceledException)
+    {
+        Logger.Log(LogLevel.INFO, "Scan operation was cancelled", context: "ProcessIPsAsync");
+    }
+    catch (Exception ex)
+    {
+        Logger.Log(LogLevel.ERROR, "Error processing IPs", context: "ProcessIPsAsync", additionalInfo: ex.Message);
+        MessageBox.Show($"An error occurred while processing IPs: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    finally
+    {
+        EnableButtons();
+        UpdateStatusBar("Completed processing all IPs.");
+        UpdateProgressBar(100);
+
+        Dispatcher.Invoke(() =>
+        {
+            StatusDataGrid.Items.Refresh();
+        });
+
+        HandleAutoSave();
+    }
+}
+
+#########################################################################################################################################################################################################
+
+private async Task<ScanStatus> ProcessIPAsync(string ip, CancellationToken cancellationToken)
+{
+    var scanStatus = new ScanStatus
+    {
+        IPAddress = ip,
+        Status = "Processing",
+        Details = "",
+        Date = DateTime.Now.ToString("M/dd/yyyy"),
+        Time = DateTime.Now.ToString("HH:mm:ss")
+    };
+
+    try
+    {
+        using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        cts.CancelAfter(TimeSpan.FromSeconds(ExecutionTimeLimit));
+
+        await ProcessIPInternalAsync(ip, scanStatus, cts.Token);
+    }
+    catch (OperationCanceledException)
+    {
+        if (cancellationToken.IsCancellationRequested)
+        {
+            scanStatus.Status = "Cancelled";
+            scanStatus.Details = "Operation canceled by user";
+        }
+        else
+        {
+            scanStatus.Status = "Timeout";
+            scanStatus.Details = "Operation timed out";
+        }
+    }
+    catch (Exception ex)
+    {
+        scanStatus.Status = "Error";
+        scanStatus.Details = $"Unexpected error: {ex.Message}";
+        Logger.Log(LogLevel.ERROR, $"Unexpected error processing IP {ip}: {ex.Message}", context: "ProcessIPAsync");
+    }
+
+    return scanStatus;
+}
+
+#########################################################################################################################################################################################################
+
+private void UpdateScanStatus(ScanStatus scanStatus)
+{
+    Dispatcher.Invoke(() =>
+    {
+        var existingStatus = ScanStatuses.FirstOrDefault(s => s.IPAddress == scanStatus.IPAddress);
+        if (existingStatus != null)
+        {
+            int index = ScanStatuses.IndexOf(existingStatus);
+            ScanStatuses[index] = scanStatus;
+        }
+        else
+        {
+            ScanStatuses.Add(scanStatus);
+        }
+        StatusDataGrid.Items.Refresh();
+    });
+}
+
+#########################################################################################################################################################################################################
+
+public class Settings : Window
+{
+    // ... other properties ...
+    public int MaxConcurrentScans { get; set; } = Environment.ProcessorCount; // Default to number of processor cores
+
+    public Settings(ObservableCollection<ColumnSetting> currentDataColumns, bool autoSave, int pingTimeout, int maxConcurrentScans, int executionTimeLimit)
+    {
+        // ... other initializations ...
+        MaxConcurrentScans = maxConcurrentScans == 0 ? Environment.ProcessorCount : maxConcurrentScans;
+        MaxConcurrentScansTextBox.Text = MaxConcurrentScans.ToString();
+        // ... rest of the constructor ...
+    }
+
+    // ... rest of the class ...
+}
